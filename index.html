@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tijon / DMVDigital Studio</title>
+<meta name="description" content="Tijon / DMVDigital Studio. Photography and music videos, shot in camera. No AI.">
+<link rel="canonical" href="https://mrducck.github.io/tijon/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tijon / DMVDigital Studio">
+<meta property="og:description" content="Photography and music videos, shot in camera. No AI.">
+<meta property="og:url" content="https://mrducck.github.io/tijon/">
+<meta property="og:image" content="https://mrducck.github.io/tijon/media/sets/01/03.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#060606">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060606'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23e2182a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=Pirata+One&family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- intro film: plays once per visit, then gets out of the way -->
+<div class="intro" id="intro" hidden>
+  <video id="introVid" muted playsinline preload="auto" aria-label="Intro film"></video>
+  <button class="intro-sound" id="introSound" type="button" aria-pressed="false" hidden>Sound on</button>
+  <button class="intro-skip" id="introSkip" type="button">Skip intro</button>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- viewfinder frame: sits over everything, never blocks clicks -->
+<div class="hud" aria-hidden="true">
+  <i class="hud-c tl"></i><i class="hud-c tr"></i><i class="hud-c bl"></i><i class="hud-c br"></i>
+  <div class="hud-bot">
+    <span class="hud-sec" id="hudSec">SEC 00 / OPEN</span>
+    <div class="expo" id="expo">
+      <div class="expo-nums"><span>-3</span><span>2</span><span>1</span><span>0</span><span>1</span><span>2</span><span>+3</span></div>
+      <div class="expo-ticks"></div>
+      <i class="expo-mark" id="expoMark"></i>
+    </div>
+    <span class="hud-tc" id="hudTc">00:00:00:00</span>
+  </div>
+</div>
+
+<header class="top">
+  <a class="brand" href="#open" data-af><i class="rec"></i><span data-name></span><small data-studio></small></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#sets" data-af>Sets</a>
+    <a href="#film" data-af data-nav="film">Film</a>
+    <a href="#bts" data-af>BTS</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="open" data-sec="OPEN">
+    <div class="hero-slides" id="heroSlides"></div>
+    <div class="hero-shade"></div>
+    <div class="hero-body">
+      <p class="hero-kicker"><span id="heroCount">FR 01/04</span><i class="bar"><b id="heroBar"></b></i><span class="stamp" data-noai hidden></span></p>
+      <canvas class="name3d" id="name3d" hidden aria-hidden="true"></canvas>
+      <h1 class="wordmark" data-name></h1>
+      <p class="hero-tag" id="heroTag"></p>
+    </div>
+    <a class="hero-cue" href="#sets" data-af>Scroll <span>&dagger;</span></a>
+  </section>
+
+  <div class="tape" aria-hidden="true"><div class="tape-run" id="tape"></div></div>
+
+  <section class="sec" id="sets" data-sec="SETS">
+    <div class="sec-head rv">
+      <span class="sec-num">01</span>
+      <h2>Sets</h2>
+      <span class="sec-meta" id="setsMeta"></span>
+    </div>
+    <div id="setsBody"></div>
+  </section>
+
+  <section class="sec" id="film" data-sec="FILM" hidden>
+    <div class="sec-head rv">
+      <span class="sec-num">02</span>
+      <h2>Film</h2>
+      <span class="sec-meta" id="filmMeta"></span>
+    </div>
+    <div class="films" id="filmBody"></div>
+  </section>
+
+  <section class="sec" id="bts" data-sec="BTS">
+    <div class="sec-head rv">
+      <span class="sec-num" id="btsNum">02</span>
+      <h2>Behind the lens</h2>
+      <span class="sec-meta">On set</span>
+    </div>
+    <div class="proof rv" id="proof" hidden>
+      <div class="proof-txt">
+        <p class="proof-head" id="noAiHead"></p>
+        <p class="proof-body" id="noAiBody"></p>
+        <p class="proof-hint" id="proofHint"><span>&dagger;</span> Drag across the frame: the room it was shot in, then the finished photo.</p>
+      </div>
+      <div class="proof-swipes" id="reveals"></div>
+    </div>
+    <div class="jg jg-strip rv" id="btsBody"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot-end">&dagger; End of roll &dagger;</p>
+  <p class="foot-name" data-name></p>
+  <p class="foot-studio" data-studio></p>
+  <nav class="foot-links" id="footLinks" aria-label="Links"></nav>
+  <p class="foot-fine">&copy; <span id="yr"></span> <span data-name></span>. <span data-noai-fine></span>All photographs and films are the artist's own.</p>
+</footer>
+
+<!-- lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lb-x" id="lbClose" aria-label="Close" data-af>&times;</button>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo" data-af>&#8249;</button>
+  <figure class="lb-fig"><img id="lbImg" alt=""></figure>
+  <button class="lb-nav next" id="lbNext" aria-label="Next photo" data-af>&#8250;</button>
+  <div class="lb-bar">
+    <span class="lb-count" id="lbCount">01 / 04</span>
+    <span class="lb-cap" id="lbCap"></span>
+    <canvas class="lb-hist" id="lbHist" width="256" height="72" aria-hidden="true"></canvas>
+  </div>
+</div>
+
+<i class="af" id="af" aria-hidden="true"></i>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
